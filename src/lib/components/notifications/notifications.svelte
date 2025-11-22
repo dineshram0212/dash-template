@@ -51,7 +51,7 @@
 		</div>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content align="end" class="w-[300px] max-w-[350px] p-0">
-		<div class="flex items-center justify-between border-b px-4 py-2">
+		<div class="flex items-center justify-between border-b px-4 py-2 pr-2">
 			<h4 class="text-sm font-semibold text-muted-foreground">Notifications</h4>
 			<Button
 				variant="ghost"
@@ -64,7 +64,7 @@
 		<div class="flex max-h-[400px] flex-col overflow-y-auto">
 			{#each notifications as notification}
 				<DropdownMenu.Item
-					class="flex cursor-pointer items-start gap-3 p-4 focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+					class="flex items-start gap-3 p-4 focus:bg-muted/50 data-[highlighted]:bg-muted/50"
 				>
 					<div
 						class={cn(

@@ -8,8 +8,7 @@
 	const LABEL_STYLE = 'text-xs font-light text-muted-foreground';
 	const INPUT_STYLE = 'w-full border-none bg-white py-5 text-sm shadow-none';
 
-	let firstName = $state('');
-	let lastName = $state('');
+	let name = $state('');
 	let email = $state('');
 	let password = $state('');
 	let loading = $state(false);
@@ -19,7 +18,7 @@
 		await authClient.signUp.email({
 			email,
 			password,
-			name: `${firstName} ${lastName}`,
+			name: name,
 			fetchOptions: {
 				onSuccess: () => {
 					loading = false;
@@ -36,27 +35,9 @@
 
 <!-- Left side - Form -->
 <div class="space-y-4">
-	<div class="grid grid-cols-2 gap-4">
-		<div class="space-y-2">
-			<Label for="first-name" class={LABEL_STYLE}>First name</Label>
-			<Input
-				id="first-name"
-				placeholder="Max"
-				required
-				class={INPUT_STYLE}
-				bind:value={firstName}
-			/>
-		</div>
-		<div class="space-y-2">
-			<Label for="last-name" class={LABEL_STYLE}>Last name</Label>
-			<Input
-				id="last-name"
-				placeholder="Robinson"
-				required
-				class={INPUT_STYLE}
-				bind:value={lastName}
-			/>
-		</div>
+	<div class="space-y-2">
+		<Label for="name" class={LABEL_STYLE}>Name</Label>
+		<Input id="name" placeholder="John Doe" required class={INPUT_STYLE} bind:value={name} />
 	</div>
 
 	<div class="space-y-2">
@@ -73,13 +54,7 @@
 
 	<div class="space-y-2">
 		<Label for="password" class={LABEL_STYLE}>Password</Label>
-		<Input
-			id="password"
-			type="password"
-			required
-			class={INPUT_STYLE}
-			bind:value={password}
-		/>
+		<Input id="password" type="password" required class={INPUT_STYLE} bind:value={password} />
 	</div>
 
 	<Button type="submit" class="w-full py-5" onclick={handleSignup} disabled={loading}>

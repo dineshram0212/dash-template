@@ -10,12 +10,12 @@ export type SidebarSection = {
 export const SIDEBAR_SECTIONS: SidebarSection[] = [
 	{
 		title: 'Home',
-		url: '/',
-		icon: Home
+		url: '/home',
+		icon: Home as unknown as ComponentType
 	},
 	{
 		title: 'Settings',
 		url: '/settings',
-		icon: Settings
+		icon: Settings as unknown as ComponentType
 	}
 ];

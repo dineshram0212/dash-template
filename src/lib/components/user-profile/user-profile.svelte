@@ -2,10 +2,11 @@
 	import { ChevronDown } from '@lucide/svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { USER_PROFILE_MENU, LOGOUT_ITEM } from '$lib/constants/user-profile';
+	import { USER_PROFILE_MENU } from '$lib/constants/user-profile';
 	import { cn } from '$lib/utils';
 	import { goto } from '$app/navigation';
 	import { authClient } from '$lib/client';
+	import { MenuItem } from '../ui/sidebar';
 
 	let {
 		mode = 'avatar',
@@ -20,15 +21,18 @@
 	}>();
 
 	// Use user data if available, otherwise fall back to session.user
-	let userData = $derived(user || (session?.user) || session);
-
+	let userData = $derived(user || session?.user || session);
 	let isFull = $derived(mode === 'full');
-	
+
 	async function handleLogout() {
 		try {
-			await authClient.signOut();
-			// Redirect to login after successful logout
-			goto('/auth/login');
+			await authClient.signOut({
+				fetchOptions: {
+					onSuccess: () => {
+						window.location.href = '/auth/login';
+					}
+				}
+			});
 		} catch (error) {
 			console.error('Logout failed:', error);
 		}
@@ -39,7 +43,7 @@
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger class={cn('outline-none', className)}>
 			<div class={cn('flex items-center gap-3 transition-colors', isFull && 'pr-4')}>
-				<Avatar.Root class="h-10 w-10 rounded-xl border">
+				<Avatar.Root class="h-10 w-10 border">
 					<Avatar.Image src={userData.image} alt={userData.name} />
 					<Avatar.Fallback>{userData.name?.charAt(0)}</Avatar.Fallback>
 				</Avatar.Root>
@@ -55,27 +59,28 @@
 		</DropdownMenu.Trigger>
 
 		<DropdownMenu.Content align="end" class="w-56">
-			<DropdownMenu.Label class="font-normal">
+			<DropdownMenu.Item class="flex cursor-pointer items-center gap-2 p-3 font-normal">
+				<Avatar.Root class="h-10 w-10 border">
+					<Avatar.Image src={userData.image} alt={userData.name} />
+					<Avatar.Fallback>{userData.name?.charAt(0)}</Avatar.Fallback>
+				</Avatar.Root>
 				<div class="flex flex-col space-y-1">
 					<p class="text-sm leading-none font-medium">{userData.name}</p>
 					<p class="text-xs leading-none text-muted-foreground">{userData.email}</p>
 				</div>
-			</DropdownMenu.Label>
-			<DropdownMenu.Separator />
+			</DropdownMenu.Item>
 
 			{#each USER_PROFILE_MENU as item}
-				<DropdownMenu.Item onclick={() => goto(item.href)}>
-					<item.icon class="mr-2 h-4 w-4" />
-					<span>{item.label}</span>
-				</DropdownMenu.Item>
+				{#if item.label === 'Logout'}
+					<DropdownMenu.Item class="group cursor-pointer p-3 transition-all" onclick={handleLogout}>
+						<span class="group-hover:text-red-600">{item.label}</span>
+					</DropdownMenu.Item>
+				{:else}
+					<DropdownMenu.Item onclick={() => goto(item.href)} class="cursor-pointer p-3">
+						<span>{item.label}</span>
+					</DropdownMenu.Item>
+				{/if}
 			{/each}
-
-			<DropdownMenu.Separator />
-
-			<DropdownMenu.Item class="text-red-600 focus:text-red-600" onclick={handleLogout}>
-				<LOGOUT_ITEM.icon class="mr-2 h-4 w-4" />
-				<span>{LOGOUT_ITEM.label}</span>
-			</DropdownMenu.Item>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 {/if}

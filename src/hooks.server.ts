@@ -16,7 +16,10 @@ export async function handle({ event, resolve }) {
 		if (event.url.pathname.startsWith('/auth')) {
 			throw redirect(303, '/');
 		}
-	} else if (!event.url.pathname.startsWith('/auth') && !event.url.pathname.startsWith('/api/auth')) {
+	} else if (
+		!event.url.pathname.startsWith('/auth') &&
+		!event.url.pathname.startsWith('/api/auth')
+	) {
 		throw redirect(303, '/auth/login');
 	}
 	return svelteKitHandler({ event, resolve, auth, building });

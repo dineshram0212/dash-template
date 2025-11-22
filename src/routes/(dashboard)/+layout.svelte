@@ -15,7 +15,7 @@
 		class="overflow-hidden md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-none"
 	>
 		<Header {session} {user} />
-		<main class="flex flex-1 overflow-hidden pt-0 p-2 md:p-0">
+		<main class="flex flex-1 overflow-hidden p-2 pt-0 md:pl-0">
 			<div class="flex flex-1 flex-col gap-4 overflow-y-auto rounded-xl bg-card p-4 shadow-none">
 				{@render children()}
 			</div>

@@ -43,7 +43,7 @@
 			<div class="mt-10 flex flex-1 flex-col items-start justify-start gap-5 md:mt-20 md:gap-10">
 				<Button
 					variant="outline"
-					class="w-full cursor-pointer rounded-full border bg-white shadow-none md:py-6"
+					class="w-full rounded-full border bg-white shadow-none md:py-6"
 					onclick={async () => {
 						await authClient.signIn.social({
 							provider: 'google'

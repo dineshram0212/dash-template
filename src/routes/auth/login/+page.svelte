@@ -55,13 +55,7 @@
 				Forgot password?
 			</a>
 		</div>
-		<Input
-			id="password"
-			type="password"
-			required
-			class={INPUT_STYLE}
-			bind:value={password}
-		/>
+		<Input id="password" type="password" required class={INPUT_STYLE} bind:value={password} />
 	</div>
 
 	<Button type="submit" class="w-full py-5" onclick={handleLogin} disabled={loading}>
