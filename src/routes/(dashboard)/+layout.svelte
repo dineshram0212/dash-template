@@ -16,7 +16,7 @@
 	>
 		<Header {session} {user} />
 		<main class="flex flex-1 overflow-hidden p-2 pt-0 md:pl-0">
-			<div class="flex flex-1 flex-col gap-4 overflow-y-auto rounded-xl bg-card p-4 shadow-none">
+			<div class="flex flex-1 flex-col gap-4 overflow-y-auto rounded-xl bg-card shadow-none">
 				{@render children()}
 			</div>
 		</main>

@@ -1,13 +1,9 @@
 <script lang="ts">
 	import ImageGrid from '$lib/components/screens/image-grid.svelte';
+	import PromptInput from '$lib/components/PromptInput.svelte';
+	import DragDropUpload from '$lib/components/DragDropUpload.svelte';
+	import FloatingPromptInput from '$lib/components/FloatingPromptInput.svelte';
 	import { MOCK_IMAGES } from '$lib/constants/splash-images';
-	import {
-		Card,
-		CardHeader,
-		CardTitle,
-		CardDescription,
-		CardContent
-	} from '$lib/components/ui/card';
 
 	function handleImageClick(item: any) {
 		console.log('Clicked image:', item);
@@ -16,10 +12,18 @@
 </script>
 
 <div class="flex flex-1 flex-col gap-6">
+	<!-- Prompt Input Section -->
+	<div class="flex flex-col gap-4 p-4 pb-0">
+		<PromptInput />
+		<DragDropUpload />
+		<div class="flex justify-start">
+			<FloatingPromptInput />
+		</div>
+	</div>
+
 	<!-- Header Section -->
-	<div class="flex flex-col gap-2 p-4">
-		<h1 class="text-2xl font-bold tracking-tight">Inspiration Gallery</h1>
-		<p class="text-muted-foreground">A masonry grid layout adapting to varied aspect ratios.</p>
+	<div class="flex flex-col gap-2 px-4">
+		<p class="text-muted-foreground">Your creations.</p>
 	</div>
 
 	<!-- Grid Section -->
